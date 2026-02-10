@@ -9,14 +9,18 @@
         :root { --pink: #ff4081; --soft-pink: #fce4ec; --deep-pink: #c2185b; }
         body { font-family: 'Georgia', serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background-color: var(--soft-pink); overflow: hidden; text-align: center; }
         
-        .stage { display: none; }
-        .active { display: block; animation: fadeIn 0.8s ease-in; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .stage { display: none; width: 85%; max-width: 400px; }
+        .active { display: block; animation: fadeIn 0.6s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         .envelope { width: 140px; height: 90px; background: #d32f2f; position: relative; display: flex; justify-content: center; align-items: center; border-radius: 0 0 5px 5px; margin: 0 auto; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
         .envelope::before { content: ''; position: absolute; top: -70px; left: 0; border-left: 70px solid transparent; border-right: 75px solid transparent; border-bottom: 70px solid #d32f2f; }
         
-        .container { background: white; padding: 2rem; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 85%; max-width: 400px; border: 2px solid #f8bbd0; }
+        .letter-box { background: white; padding: 2.5rem; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border: 2px solid #f8bbd0; cursor: pointer; }
+        .letter-box p { color: var(--deep-pink); font-size: 1.3rem; line-height: 1.5; font-weight: bold; }
+        .tap-hint { font-size: 0.8rem; color: #9e9e9e; margin-top: 15px; font-weight: normal; }
+
+        .container { background: white; padding: 2rem; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border: 2px solid #f8bbd0; }
         h1 { color: var(--deep-pink); font-size: 1.5rem; }
         .buttons { margin-top: 2rem; display: flex; justify-content: center; align-items: center; gap: 20px; min-height: 60px; position: relative; }
         
@@ -25,26 +29,62 @@
         #noBtn { background-color: #9e9e9e; color: white; }
         
         .cat-gif { width: 180px; border-radius: 15px; }
-        /* Adjusted the final image styling for better loading */
         .praise-img { width: 100%; max-width: 250px; border-radius: 15px; margin-top: 15px; border: 3px solid var(--pink); }
         .messenger-btn { display: inline-block; margin-top: 15px; padding: 12px 24px; background-color: #0084ff; color: white; text-decoration: none; border-radius: 25px; font-weight: bold; }
     </style>
 </head>
 <body>
 
-    <div id="stage1" class="stage active" onclick="startExperience()">
+    <div id="stage1" class="stage active" onclick="nextStage(1)">
         <div class="envelope"><span style="font-size: 45px; z-index: 2;">💌</span></div>
-        <p style="color: var(--deep-pink); font-weight: bold; margin-top: 30px;">Para kay Kammie...<br>(Tap to open)</p>
+        <p style="color: var(--deep-pink); font-weight: bold; margin-top: 30px;">Hello Kammie!<br><span style="font-size: 0.8rem; font-weight: normal; color: #9e9e9e;">(Tap to open)</span></p>
     </div>
 
-    <div id="stage2" class="stage">
-        <h2 style="color: var(--deep-pink);">Binubuksan ang iyong sulat...</h2>
-        <p><i>Handa na ba ang puso mo?</i></p>
+    <div id="stage2" class="stage" onclick="nextStage(2)">
+        <div class="letter-box">
+            <p>Thank you! For who you are...</p>
+            <div class="tap-hint">Tap to continue...</div>
+        </div>
     </div>
 
-    <div id="stage3" class="stage">
+    <div id="stage3" class="stage" onclick="nextStage(3)">
+        <div class="letter-box">
+            <p>You're probably thinking "ang dami naman neto"</p>
+            <div class="tap-hint">Tap to continue...</div>
+        </div>
+    </div>
+
+    <div id="stage4" class="stage" onclick="nextStage(4)">
+        <div class="letter-box">
+            <p>Dapat kasi may surprisee...</p>
+            <div class="tap-hint">Tap to continue...</div>
+        </div>
+    </div>
+
+    <div id="stage5" class="stage" onclick="nextStage(5)">
+        <div class="letter-box">
+            <p>Pero in reality, hindi ko lang alam paano to sabihin in-person</p>
+            <div class="tap-hint">Tap to continue...</div>
+        </div>
+    </div>
+
+    <div id="stage6" class="stage" onclick="nextStage(6)">
+        <div class="letter-box">
+            <p>Kaya ganito ginawa ko.... (sorry na agad)</p>
+            <div class="tap-hint">Tap to continue...</div>
+        </div>
+    </div>
+
+    <div id="stage7" class="stage" onclick="nextStage(7)">
+        <div class="letter-box">
+            <p>Kung binabasa mo pa to... yiieee hahahahaha EME eto na...</p>
+            <div class="tap-hint">Tap to continue...</div>
+        </div>
+    </div>
+
+    <div id="stage8" class="stage">
         <div class="container">
-            <img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" class="cat-gif">
+            <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHIycG0zdmt4dzZqZ3lyYnd2Ynh6eXh6eXh6eXh6eXh6eXh6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/MDJ9IbxxvDUQM/giphy.gif" class="cat-gif">
             <h1>Maaari ba kitang maging Valentine?</h1>
             <p><i>"Dinggin mo ang hiling..."</i></p>
             <div class="buttons">
@@ -54,30 +94,27 @@
         </div>
     </div>
 
-    <div id="stage4" class="stage">
+    <div id="stage9" class="stage">
         <div class="container">
             <h1>No Delete, No Erase! ❤️</h1>
             <p>Naka-record na 'yan, bawal na bawiin. See you sa ika-14, Kammie!</p>
-            <img src="https://i.ibb.co/hL4XmR8/praise-the-lord.jpg" class="praise-img" onerror="this.src='https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOXVvYXByZGF4ZHRxeHlybm5vYmN2N2JidmZ3eXh6eXh6eXh6eXh6eXh6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/G7rU8NqNyrDgc/giphy.gif'">
+            <img src="https://i.ibb.co/hL4XmR8/praise-the-lord.jpg" class="praise-img" onerror="this.src='https://media.giphy.com/media/G7rU8NqNyrDgc/giphy.gif'">
             <br>
             <a href="https://m.me/YOUR_USERNAME" class="messenger-btn">Hart reacs onlii xdxd 💬</a>
         </div>
     </div>
 
     <audio id="bgMusic" loop>
-        <source src="https://files.catbox.moe/0v2j5m.mp3" type="audio/mpeg">
+        <source src="https://files.catbox.moe/bpmsvk.mp3" type="audio/mpeg">
     </audio>
 
     <script>
-        function startExperience() {
-            document.getElementById('bgMusic').play();
-            document.getElementById('stage1').classList.remove('active');
-            document.getElementById('stage2').classList.add('active');
-            
-            setTimeout(() => {
-                document.getElementById('stage2').classList.remove('active');
-                document.getElementById('stage3').classList.add('active');
-            }, 8000);
+        function nextStage(current) {
+            if (current === 1) {
+                document.getElementById('bgMusic').play();
+            }
+            document.getElementById('stage' + current).classList.remove('active');
+            document.getElementById('stage' + (current + 1)).classList.add('active');
         }
 
         function moveNo() {
@@ -92,8 +129,8 @@
 
         function celebrate() {
             confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
-            document.getElementById('stage3').classList.remove('active');
-            document.getElementById('stage4').classList.add('active');
+            document.getElementById('stage8').classList.remove('active');
+            document.getElementById('stage9').classList.add('active');
         }
     </script>
 </body>
