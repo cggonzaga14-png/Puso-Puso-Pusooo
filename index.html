@@ -9,16 +9,13 @@
         :root { --pink: #ff4081; --soft-pink: #fce4ec; --deep-pink: #c2185b; }
         body { font-family: 'Georgia', serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background-color: var(--soft-pink); overflow: hidden; text-align: center; }
         
-        /* Layout Stages */
         .stage { display: none; }
         .active { display: block; animation: fadeIn 0.8s ease-in; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* Envelope Styling */
         .envelope { width: 140px; height: 90px; background: #d32f2f; position: relative; display: flex; justify-content: center; align-items: center; border-radius: 0 0 5px 5px; margin: 0 auto; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
-        .envelope::before { content: ''; position: absolute; top: -70px; left: 0; border-left: 70px solid transparent; border-right: 70px solid transparent; border-bottom: 70px solid #d32f2f; }
+        .envelope::before { content: ''; position: absolute; top: -70px; left: 0; border-left: 70px solid transparent; border-right: 75px solid transparent; border-bottom: 70px solid #d32f2f; }
         
-        /* Content Styling */
         .container { background: white; padding: 2rem; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 85%; max-width: 400px; border: 2px solid #f8bbd0; }
         h1 { color: var(--deep-pink); font-size: 1.5rem; }
         .buttons { margin-top: 2rem; display: flex; justify-content: center; align-items: center; gap: 20px; min-height: 60px; position: relative; }
@@ -28,7 +25,8 @@
         #noBtn { background-color: #9e9e9e; color: white; }
         
         .cat-gif { width: 180px; border-radius: 15px; }
-        .praise-img { width: 100%; max-width: 250px; border-radius: 15px; margin-top: 15px; }
+        /* Adjusted the final image styling for better loading */
+        .praise-img { width: 100%; max-width: 250px; border-radius: 15px; margin-top: 15px; border: 3px solid var(--pink); }
         .messenger-btn { display: inline-block; margin-top: 15px; padding: 12px 24px; background-color: #0084ff; color: white; text-decoration: none; border-radius: 25px; font-weight: bold; }
     </style>
 </head>
@@ -46,7 +44,7 @@
 
     <div id="stage3" class="stage">
         <div class="container">
-            <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHIycG0zdmt4dzZqZ3lyYnd2Ynh6eXh6eXh6eXh6eXh6eXh6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/MDJ9IbxxvDUQM/giphy.gif" class="cat-gif">
+            <img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" class="cat-gif">
             <h1>Maaari ba kitang maging Valentine?</h1>
             <p><i>"Dinggin mo ang hiling..."</i></p>
             <div class="buttons">
@@ -60,7 +58,7 @@
         <div class="container">
             <h1>No Delete, No Erase! ❤️</h1>
             <p>Naka-record na 'yan, bawal na bawiin. See you sa ika-14, Kammie!</p>
-            <img src="https://i.pinimg.com/originals/21/f8/33/21f833777558ecf93630f9a2e342750e.jpg" class="praise-img">
+            <img src="https://i.ibb.co/hL4XmR8/praise-the-lord.jpg" class="praise-img" onerror="this.src='https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOXVvYXByZGF4ZHRxeHlybm5vYmN2N2JidmZ3eXh6eXh6eXh6eXh6eXh6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/G7rU8NqNyrDgc/giphy.gif'">
             <br>
             <a href="https://m.me/YOUR_USERNAME" class="messenger-btn">Hart reacs onlii xdxd 💬</a>
         </div>
@@ -72,14 +70,10 @@
 
     <script>
         function startExperience() {
-            // Play Music
             document.getElementById('bgMusic').play();
-            
-            // Move to Loading
             document.getElementById('stage1').classList.remove('active');
             document.getElementById('stage2').classList.add('active');
             
-            // 8 Second Delay
             setTimeout(() => {
                 document.getElementById('stage2').classList.remove('active');
                 document.getElementById('stage3').classList.add('active');
@@ -89,13 +83,9 @@
         function moveNo() {
             const noBtn = document.getElementById('noBtn');
             const yesBtn = document.getElementById('yesBtn');
-            
-            // Move No Button
             noBtn.style.position = 'fixed';
             noBtn.style.left = Math.random() * (window.innerWidth - 100) + 'px';
             noBtn.style.top = Math.random() * (window.innerHeight - 50) + 'px';
-            
-            // Grow Yes Button
             let scale = parseFloat(yesBtn.style.transform.replace('scale(', '')) || 1;
             yesBtn.style.transform = `scale(${scale + 0.25})`;
         }
