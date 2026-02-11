@@ -8,15 +8,16 @@
     <style>
         :root { --pink: #ff4081; --soft-pink: rgba(252, 228, 236, 0.8); --deep-pink: #c2185b; }
         
-        body, html { height: 100%; margin: 0; font-family: 'Georgia', serif; overflow: hidden; background-color: #fce4ec; }
+        body, html { height: 100%; margin: 0; font-family: 'Georgia', serif; overflow: hidden; }
 
-        /* THE BLURRED BACKGROUND */
+        /* Background logic */
         .bg-image {
             position: fixed;
             left: 0; right: 0; top: 0; bottom: 0;
             background-image: url('https://i.ibb.co/fGvMfyxf/K.jpg');
             background-size: cover;
             background-position: center;
+            /* Blur removed for better loading performance */
             z-index: -1;
         }
 
@@ -52,6 +53,7 @@
         .cat-gif { width: 160px; border-radius: 15px; margin-bottom: 15px; }
         .messenger-btn { display: inline-block; margin-top: 15px; padding: 12px 24px; background-color: #0084ff; color: white; text-decoration: none; border-radius: 25px; font-weight: bold; }
 
+        /* Block interaction during delay */
         .waiting { pointer-events: none; }
     </style>
 </head>
@@ -102,13 +104,14 @@
         const music = document.getElementById('bgMusic');
 
         function startExperience() {
-            music.play().catch(e => console.log("Audio started"));
+            music.play().catch(e => console.log("Music play triggered"));
             document.getElementById('stage1').classList.remove('active');
             document.getElementById('stage2').classList.add('active');
         }
 
         function nextStage(current) {
             if (isWaiting) return;
+
             isWaiting = true;
             const currentElement = document.getElementById('stage' + current);
             currentElement.classList.add('waiting');
