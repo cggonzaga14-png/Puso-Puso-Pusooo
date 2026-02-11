@@ -8,18 +8,17 @@
     <style>
         :root { --pink: #ff4081; --soft-pink: rgba(252, 228, 236, 0.8); --deep-pink: #c2185b; }
         
-        body, html { height: 100%; margin: 0; font-family: 'Georgia', serif; overflow: hidden; }
+        body, html { height: 100%; margin: 0; font-family: 'Georgia', serif; overflow: hidden; background-color: #fce4ec; }
 
-        /* Background logic */
+        /* THE BLURRED BACKGROUND */
         .bg-image {
             position: fixed;
             left: 0; right: 0; top: 0; bottom: 0;
             background-image: url('https://i.ibb.co/fGvMfyxf/K.jpg');
             background-size: cover;
             background-position: center;
-            filter: blur(8px); /* Adjust the '8px' to make it more or less blurry */
-            transform: scale(1.1); /* Prevents white edges caused by blur */
-            /* Blur removed for better loading performance */
+            filter: blur(8px);
+            transform: scale(1.1); /* Prevents white edges */
             z-index: -1;
         }
 
@@ -55,7 +54,6 @@
         .cat-gif { width: 160px; border-radius: 15px; margin-bottom: 15px; }
         .messenger-btn { display: inline-block; margin-top: 15px; padding: 12px 24px; background-color: #0084ff; color: white; text-decoration: none; border-radius: 25px; font-weight: bold; }
 
-        /* Block interaction during delay */
         .waiting { pointer-events: none; }
     </style>
 </head>
@@ -93,11 +91,11 @@
         <div class="container">
             <h1>No Delete, No Erase! ❤️</h1>
             <p>Naka-record na 'yan, bawal na bawiin. See you sa ika-14, Kammie!</p>
-            <a href="https://m.me/ciel.gonz" class="messenger-btn"> Heart reacxss XOXO! 💬</a>
+            <a href="https://m.me/ciel.gonz" class="messenger-btn">Say hi to me! 💬</a>
         </div>
     </div>
 
-    <audio id="bgMusic" loop>
+    <audio id="bgMusic" loop preload="auto">
         <source src="https://files.catbox.moe/bpmsvk.mp3" type="audio/mpeg">
     </audio>
 
@@ -106,14 +104,13 @@
         const music = document.getElementById('bgMusic');
 
         function startExperience() {
-            music.play().catch(e => console.log("Music play triggered"));
+            music.play().catch(e => console.log("Audio started"));
             document.getElementById('stage1').classList.remove('active');
             document.getElementById('stage2').classList.add('active');
         }
 
         function nextStage(current) {
             if (isWaiting) return;
-
             isWaiting = true;
             const currentElement = document.getElementById('stage' + current);
             currentElement.classList.add('waiting');
