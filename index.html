@@ -6,57 +6,64 @@
     <title>Para kay Kammie</title>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
-        :root { --pink: #ff4081; --soft-pink: rgba(252, 228, 236, 0.8); --deep-pink: #c2185b; }
+        :root { --pink: #ff4081; --soft-pink: #fce4ec; --deep-pink: #c2185b; }
         
-        body, html { height: 100%; margin: 0; font-family: 'Georgia', serif; overflow: hidden; }
+        body, html { height: 100%; margin: 0; font-family: 'Georgia', serif; overflow: hidden; background-color: var(--soft-pink); }
 
-        /* The Blurred Background */
+        /* Background Image with Blur */
         .bg-image {
             position: fixed;
-            left: 0; right: 0; top: 0; bottom: 0;
-            /* REPLACE THE LINK BELOW WITH YOUR BACKGROUND PICTURE */
-            background-image: url('https://i.ibb.co/fGvMfyxf/K.jpg');
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            /* REPLACE WITH YOUR i.ibb.co DIRECT LINK */
+            background-image: url('PASTE_YOUR_IBB_LINK_HERE'); 
             background-size: cover;
             background-position: center;
-            filter: blur(8px); /* Adjust the '8px' to make it more or less blurry */
-            transform: scale(1.1); /* Prevents white edges caused by blur */
-            z-index: -1;
+            background-repeat: no-repeat;
+            filter: blur(6px); 
+            transform: scale(1.1);
+            z-index: -2;
         }
 
-        /* Dark overlay to make text pop */
         .overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.2);
-            z-index: 0;
+            z-index: -1;
         }
 
         body { display: flex; justify-content: center; align-items: center; text-align: center; }
-        
+
+        /* Stages Styling */
         .stage { display: none; width: 85%; max-width: 400px; z-index: 10; position: relative; }
         .active { display: block; animation: fadeIn 0.8s ease-in; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* Envelope */
-        .envelope { width: 140px; height: 90px; background: #d32f2f; position: relative; display: flex; justify-content: center; align-items: center; border-radius: 0 0 5px 5px; margin: 0 auto; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
-        .envelope::before { content: ''; position: absolute; top: -70px; left: 0; border-left: 70px solid transparent; border-right: 75px solid transparent; border-bottom: 70px solid #d32f2f; }
+        /* Heart Pulse Animation */
+        #loading-heart { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 5; }
+        .heart-icon { font-size: 50px; animation: pulse 1.2s infinite; filter: drop-shadow(0 0 10px rgba(255,64,129,0.5)); }
         
-        /* Letter Boxes */
-        .letter-box { background: rgba(255, 255, 255, 0.9); padding: 2.5rem; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); border: 2px solid #f8bbd0; cursor: pointer; }
-        .letter-box p { color: var(--deep-pink); font-size: 1.3rem; line-height: 1.5; font-weight: bold; margin: 0; }
-        .tap-hint { font-size: 0.8rem; color: #757575; margin-top: 20px; font-weight: normal; }
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.6; }
+            50% { transform: scale(1.3); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.6; }
+        }
 
-        /* Button Styling */
-        .container { background: white; padding: 2rem; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); border: 2px solid #f8bbd0; }
+        /* Letter Box Aesthetic */
+        .letter-box { background: rgba(255, 255, 255, 0.95); padding: 2.5rem; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); border: 2px solid #f8bbd0; cursor: pointer; }
+        .letter-box p { color: var(--deep-pink); font-size: 1.3rem; line-height: 1.5; font-weight: bold; margin: 0; }
+        .tap-hint { font-size: 0.8rem; color: #757575; margin-top: 20px; font-weight: normal; font-style: italic; }
+
+        /* Container for Question/Ending */
+        .container { background: white; padding: 2rem; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); border: 2px solid #f8bbd0; }
         h1 { color: var(--deep-pink); font-size: 1.5rem; }
         .buttons { margin-top: 2rem; display: flex; justify-content: center; align-items: center; gap: 20px; min-height: 60px; position: relative; }
         
-        button { padding: 12px 25px; font-size: 1rem; border: none; border-radius: 50px; cursor: pointer; }
-        #yesBtn { background-color: var(--pink); color: white; font-weight: bold; transition: transform 0.2s; }
+        button { padding: 12px 25px; font-size: 1rem; border: none; border-radius: 50px; cursor: pointer; font-weight: bold; }
+        #yesBtn { background-color: var(--pink); color: white; transition: transform 0.2s; }
         #noBtn { background-color: #9e9e9e; color: white; }
         
         .cat-gif { width: 160px; border-radius: 15px; margin-bottom: 15px; }
-        .messenger-btn { display: inline-block; margin-top: 15px; padding: 12px 24px; background-color: #0084ff; color: white; text-decoration: none; border-radius: 25px; font-weight: bold; box-shadow: 0 4px 10px rgba(0,132,255,0.3); }
+        .messenger-btn { display: inline-block; margin-top: 15px; padding: 12px 24px; background-color: #0084ff; color: white; text-decoration: none; border-radius: 25px; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -64,65 +71,29 @@
     <div class="bg-image"></div>
     <div class="overlay"></div>
 
+    <div id="loading-heart"><span class="heart-icon">❤️</span></div>
+
     <div id="stage1" class="stage active" onclick="nextStage(1)">
-        <div class="envelope"><span style="font-size: 45px; z-index: 2;">💌</span></div>
-        <p style="color: white; font-weight: bold; margin-top: 30px; text-shadow: 1px 1px 5px rgba(0,0,0,0.5);">May sorpresa ako sa'yo...<br><span style="font-size: 0.8rem; font-weight: normal; opacity: 0.8;">(Tap to open)</span></p>
+        <div class="envelope" style="width: 140px; height: 90px; background: #d32f2f; position: relative; display: flex; justify-content: center; align-items: center; border-radius: 0 0 5px 5px; margin: 0 auto; cursor: pointer;">
+            <div style="content: ''; position: absolute; top: -70px; left: 0; border-left: 70px solid transparent; border-right: 70px solid transparent; border-bottom: 70px solid #d32f2f;"></div>
+            <span style="font-size: 45px; z-index: 2;">💌</span>
+        </div>
+        <p style="color: white; font-weight: bold; margin-top: 35px; text-shadow: 2px 2px 8px rgba(0,0,0,0.6); font-size: 1.4rem;">May munting liham para sa iyo...<br><span style="font-size: 0.9rem; font-weight: normal; opacity: 0.9;">(Tap to open)</span></p>
     </div>
 
-    <div id="stage2" class="stage" onclick="nextStage(2)">
-        <div class="letter-box">
-            <p>Hello Kammie!</p>
-            <div class="tap-hint">Tap to continue...</div>
-        </div>
-    </div>
-
-    <div id="stage3" class="stage" onclick="nextStage(3)">
-        <div class="letter-box">
-            <p>Thank you! For who you are...</p>
-            <div class="tap-hint">Tap to continue...</div>
-        </div>
-    </div>
-
-    <div id="stage4" class="stage" onclick="nextStage(4)">
-        <div class="letter-box">
-            <p>You're probably thinking "ang dami naman neto"</p>
-            <div class="tap-hint">Tap to continue...</div>
-        </div>
-    </div>
-
-    <div id="stage5" class="stage" onclick="nextStage(5)">
-        <div class="letter-box">
-            <p>Dapat kasi may surprisee...</p>
-            <div class="tap-hint">Tap to continue...</div>
-        </div>
-    </div>
-
-    <div id="stage6" class="stage" onclick="nextStage(6)">
-        <div class="letter-box">
-            <p>Pero in reality, hindi ko lang alam paano to sabihin in-person</p>
-            <div class="tap-hint">Tap to continue...</div>
-        </div>
-    </div>
-
-    <div id="stage7" class="stage" onclick="nextStage(7)">
-        <div class="letter-box">
-            <p>Kaya ganito ginawa ko.... (sorry na agad)</p>
-            <div class="tap-hint">Tap to continue...</div>
-        </div>
-    </div>
-
-    <div id="stage8" class="stage" onclick="nextStage(8)">
-        <div class="letter-box">
-            <p>Kung binabasa mo pa to... yiieee hahahahaha EME eto na...</p>
-            <div class="tap-hint">Tap to continue...</div>
-        </div>
-    </div>
+    <div id="stage2" class="stage" onclick="nextStage(2)"><div class="letter-box"><p>Hello Kammie!</p><div class="tap-hint">Tap to continue...</div></div></div>
+    <div id="stage3" class="stage" onclick="nextStage(3)"><div class="letter-box"><p>Thank you! For who you are...</p><div class="tap-hint">Tap to continue...</div></div></div>
+    <div id="stage4" class="stage" onclick="nextStage(4)"><div class="letter-box"><p>You're probably thinking "ang dami naman neto"</p><div class="tap-hint">Tap to continue...</div></div></div>
+    <div id="stage5" class="stage" onclick="nextStage(5)"><div class="letter-box"><p>Dapat kasi may surprisee...</p><div class="tap-hint">Tap to continue...</div></div></div>
+    <div id="stage6" class="stage" onclick="nextStage(6)"><div class="letter-box"><p>Pero in reality, hindi ko lang alam paano to sabihin in-person</p><div class="tap-hint">Tap to continue...</div></div></div>
+    <div id="stage7" class="stage" onclick="nextStage(7)"><div class="letter-box"><p>Kaya ganito ginawa ko.... (sorry na agad)</p><div class="tap-hint">Tap to continue...</div></div></div>
+    <div id="stage8" class="stage" onclick="nextStage(8)"><div class="letter-box"><p>Kung binabasa mo pa to... yiieee hahahahaha EME eto na...</p><div class="tap-hint">Tap to continue...</div></div></div>
 
     <div id="stage9" class="stage">
         <div class="container">
             <img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" class="cat-gif">
             <h1>Maaari ba kitang maging Valentine?</h1>
-            <p><i>"Dinggin mo ang hiling..."</i></p>
+            <p style="color: #666;"><i>"Dinggin mo ang hiling..."</i></p>
             <div class="buttons">
                 <button id="yesBtn" onclick="celebrate()">Sige! (Yes)</button>
                 <button id="noBtn" onmouseover="moveNo()">Hindi (No)</button>
@@ -135,21 +106,35 @@
             <h1>No Delete, No Erase! ❤️</h1>
             <p>Naka-record na 'yan, bawal na bawiin. See you sa ika-14, Kammie!</p>
             <br>
-            <a href="https://m.me/ciel.gonz" class="messenger-btn">Hart reacs onlii xdxd 💬</a>
+            <a href="https://m.me/YOUR_USERNAME" class="messenger-btn">Say hi to me! 💬</a>
         </div>
     </div>
 
-    <audio id="bgMusic" loop>
-        <source src="https://files.catbox.moe/bpmsvk.mp3 type="audio/mpeg">
+    <audio id="bgMusic" loop crossorigin="anonymous">
+        <source src="https://files.catbox.moe/bpmsvk.mp3" type="audio/mpeg">
     </audio>
 
     <script>
         function nextStage(current) {
-            if (current === 1) {
-                document.getElementById('bgMusic').play();
-            }
+            const music = document.getElementById('bgMusic');
+            const heart = document.getElementById('loading-heart');
+
+            if (current === 1) { music.play().catch(e => console.log("Music ready")); }
+
+            // Hide current screen
             document.getElementById('stage' + current).classList.remove('active');
-            document.getElementById('stage' + (current + 1)).classList.add('active');
+            
+            // Show pulsing heart
+            heart.style.display = 'block';
+
+            // Timing logic: 5s for letters, 8s for the question
+            let delay = 5000; 
+            if (current === 8) { delay = 8000; }
+
+            setTimeout(() => {
+                heart.style.display = 'none';
+                document.getElementById('stage' + (current + 1)).classList.add('active');
+            }, delay);
         }
 
         function moveNo() {
