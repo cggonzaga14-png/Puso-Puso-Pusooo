@@ -8,14 +8,13 @@
     <style>
         :root { --pink: #ff4081; --soft-pink: #fce4ec; --deep-pink: #c2185b; }
         
-        /* 1. FIXED BACKGROUND LOGIC */
         body, html { height: 100%; margin: 0; font-family: 'Georgia', serif; overflow: hidden; background-color: #fce4ec; }
 
+        /* THE BACKGROUND - UPDATED WITH YOUR LINK */
         .bg-image {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            /* IMPORTANT: Ensure this link ends in .jpg, .png, or .webp */
-            background: url('https://i.ibb.co/W4bZWhrC/image.jpg') no-repeat center center;
+            background: url('https://i.ibb.co/W4bZWhrC/K.jpg') no-repeat center center;
             background-size: cover;
             filter: blur(6px);
             transform: scale(1.1);
@@ -29,7 +28,7 @@
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         #loading-heart { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 5; }
-        .heart-icon { font-size: 50px; animation: pulse 1.2s infinite; }
+        .heart-icon { font-size: 50px; animation: pulse 1.2s infinite; filter: drop-shadow(0 0 10px rgba(255,64,129,0.5)); }
         @keyframes pulse { 0% { transform: scale(1); opacity: 0.6; } 50% { transform: scale(1.3); opacity: 1; } 100% { transform: scale(1); opacity: 0.6; } }
 
         .letter-box { background: rgba(255, 255, 255, 0.95); padding: 2.5rem; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); border: 2px solid #f8bbd0; cursor: pointer; }
@@ -38,7 +37,7 @@
 
         .container { background: white; padding: 2rem; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); border: 2px solid #f8bbd0; }
         button { padding: 12px 25px; font-size: 1rem; border: none; border-radius: 50px; cursor: pointer; font-weight: bold; margin-top: 10px; }
-        #yesBtn { background-color: var(--pink); color: white; }
+        #yesBtn { background-color: var(--pink); color: white; transition: transform 0.2s; }
         #noBtn { background-color: #9e9e9e; color: white; }
         .messenger-btn { display: inline-block; margin-top: 15px; padding: 12px 24px; background-color: #0084ff; color: white; text-decoration: none; border-radius: 25px; font-weight: bold; }
     </style>
@@ -80,7 +79,7 @@
         <div class="container">
             <h1 style="color:var(--deep-pink)">No Delete, No Erase! ❤️</h1>
             <p>Naka-record na 'yan, bawal na bawiin. See you sa ika-14, Kammie!</p>
-            <a href="https://m.me/ciel.gonz" class="messenger-btn">heart reaccxs onli xoxo 💬</a>
+            <a href="https://m.me/ciel.gonz" class="messenger-btn">Heart reacxx xoxo 💬</a>
         </div>
     </div>
 
@@ -94,10 +93,9 @@
         const heart = document.getElementById('loading-heart');
 
         function nextStage(current) {
-            // FORCE PLAY MUSIC
+            // Wake up audio on the first tap
             if (current === 1) {
-                music.muted = false;
-                music.play().catch(e => console.log("Audio block bypass needed"));
+                music.play().catch(e => console.log("Audio waiting for user click"));
             }
 
             document.getElementById('stage' + current).classList.remove('active');
@@ -127,6 +125,4 @@
             document.getElementById('stage9').classList.remove('active');
             document.getElementById('stage10').classList.add('active');
         }
-    </script>
-</body>
-</html>
+    </
