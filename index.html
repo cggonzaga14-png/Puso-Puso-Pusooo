@@ -6,83 +6,69 @@
     <title>Para kay Kammie</title>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
-        :root { --pink: #ff4081; --soft-pink: rgba(252, 228, 236, 0.8); --deep-pink: #c2185b; }
+        :root { --pink: #ff4081; --deep-pink: #c2185b; }
         
-        body, html { height: 100%; margin: 0; font-family: 'Georgia', serif; overflow: hidden; background-color: #fce4ec; }
-
-        /* The Blurred Background - Simplified */
-        .bg-image {
-            position: fixed;
-            left: 0; right: 0; top: 0; bottom: 0;
-            background: url('https://i.ibb.co/fGvMfyxf/K.jpg') no-repeat center center;
+        /* THE NO-FAIL BACKGROUND */
+        body { 
+            height: 100vh; 
+            margin: 0; 
+            font-family: 'Georgia', serif; 
+            overflow: hidden; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            text-align: center;
+            /* Direct link, no blur, with a darkening layer so text stays readable */
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), 
+                        url('https://i.ibb.co/fGvMfyxf/K.jpg');
             background-size: cover;
-            filter: blur(8px);
-            transform: scale(1.1);
-            z-index: -1;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-color: #fce4ec; 
         }
 
-        .overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.25);
-            z-index: 0;
-        }
-
-        body { display: flex; justify-content: center; align-items: center; text-align: center; }
-        
-        .stage { display: none; width: 85%; max-width: 400px; z-index: 10; position: relative; }
+        .stage { display: none; width: 85%; max-width: 400px; z-index: 10; }
         .active { display: block; animation: fadeIn 0.8s ease-in; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         /* Envelope */
-        .envelope { width: 140px; height: 90px; background: #d32f2f; position: relative; display: flex; justify-content: center; align-items: center; border-radius: 0 0 5px 5px; margin: 0 auto; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+        .envelope { width: 140px; height: 90px; background: #d32f2f; position: relative; display: flex; justify-content: center; align-items: center; border-radius: 0 0 5px 5px; margin: 0 auto; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.4); }
         .envelope::before { content: ''; position: absolute; top: -70px; left: 0; border-left: 70px solid transparent; border-right: 75px solid transparent; border-bottom: 70px solid #d32f2f; }
         
-        /* Letter Boxes */
-        .letter-box { background: rgba(255, 255, 255, 0.95); padding: 2.5rem; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); border: 2px solid #f8bbd0; }
+        /* Glassmorphism Letter Boxes */
+        .letter-box { background: rgba(255, 255, 255, 0.95); padding: 2.5rem; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 2px solid #f8bbd0; cursor: pointer; }
         .letter-box p { color: var(--deep-pink); font-size: 1.3rem; line-height: 1.5; font-weight: bold; margin: 0; }
         
-        /* Hint - only shows when she CAN tap */
-        .tap-hint { font-size: 0.8rem; color: #757575; margin-top: 20px; font-weight: normal; font-style: italic; opacity: 0.6; }
-
-        /* Disable clicks during delay */
-        .waiting { pointer-events: none; opacity: 0.8; }
-
-        .container { background: white; padding: 2rem; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); border: 2px solid #f8bbd0; }
+        .container { background: white; padding: 2rem; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
         h1 { color: var(--deep-pink); font-size: 1.5rem; }
-        .buttons { margin-top: 2rem; display: flex; justify-content: center; align-items: center; gap: 20px; min-height: 60px; position: relative; }
-        
         button { padding: 12px 25px; font-size: 1rem; border: none; border-radius: 50px; cursor: pointer; font-weight: bold; }
-        #yesBtn { background-color: var(--pink); color: white; transition: transform 0.2s; }
+        #yesBtn { background-color: var(--pink); color: white; }
         #noBtn { background-color: #9e9e9e; color: white; }
-        
-        .cat-gif { width: 160px; border-radius: 15px; margin-bottom: 15px; }
         .messenger-btn { display: inline-block; margin-top: 15px; padding: 12px 24px; background-color: #0084ff; color: white; text-decoration: none; border-radius: 25px; font-weight: bold; }
+        
+        /* Prevents double-tapping during the pause */
+        .waiting { pointer-events: none; }
     </style>
 </head>
 <body>
 
-    <div class="bg-image"></div>
-    <div class="overlay"></div>
-
     <div id="stage1" class="stage active" onclick="nextStage(1)">
         <div class="envelope"><span style="font-size: 45px; z-index: 2;">💌</span></div>
-        <p style="color: white; font-weight: bold; margin-top: 30px; text-shadow: 1px 1px 5px rgba(0,0,0,0.5);">May sorpresa ako sa'yo...<br><span style="font-size: 0.8rem; font-weight: normal; opacity: 0.8;">(Tap to open)</span></p>
+        <p style="color: white; font-weight: bold; margin-top: 30px; text-shadow: 2px 2px 10px rgba(0,0,0,0.8); font-size: 1.4rem;">May sorpresa ako sa'yo...<br><span style="font-size: 0.9rem; font-weight: normal;">(Tap to open)</span></p>
     </div>
 
-    <div id="stage2" class="stage" onclick="nextStage(2)"><div class="letter-box"><p>Hello Kammie!</p><div class="tap-hint">Wait 5 seconds...</div></div></div>
-    <div id="stage3" class="stage" onclick="nextStage(3)"><div class="letter-box"><p>Thank you! For who you are...</p><div class="tap-hint">Wait 5 seconds...</div></div></div>
-    <div id="stage4" class="stage" onclick="nextStage(4)"><div class="letter-box"><p>You're probably thinking "ang dami naman neto"</p><div class="tap-hint">Wait 5 seconds...</div></div></div>
-    <div id="stage5" class="stage" onclick="nextStage(5)"><div class="letter-box"><p>Dapat kasi may surprisee...</p><div class="tap-hint">Wait 5 seconds...</div></div></div>
-    <div id="stage6" class="stage" onclick="nextStage(6)"><div class="letter-box"><p>Pero in reality, hindi ko lang alam paano to sabihin in-person</p><div class="tap-hint">Wait 5 seconds...</div></div></div>
-    <div id="stage7" class="stage" onclick="nextStage(7)"><div class="letter-box"><p>Kaya ganito ginawa ko.... (sorry na agad)</p><div class="tap-hint">Wait 5 seconds...</div></div></div>
-    <div id="stage8" class="stage" onclick="nextStage(8)"><div class="letter-box"><p>Kung binabasa mo pa to... yiieee hahahahaha EME eto na...</p><div class="tap-hint">Wait 8 seconds...</div></div></div>
+    <div id="stage2" class="stage" onclick="nextStage(2)"><div class="letter-box"><p>Hello Kammie!</p></div></div>
+    <div id="stage3" class="stage" onclick="nextStage(3)"><div class="letter-box"><p>Thank you! For who you are...</p></div></div>
+    <div id="stage4" class="stage" onclick="nextStage(4)"><div class="letter-box"><p>You're probably thinking "ang dami naman neto"</p></div></div>
+    <div id="stage5" class="stage" onclick="nextStage(5)"><div class="letter-box"><p>Dapat kasi may surprisee...</p></div></div>
+    <div id="stage6" class="stage" onclick="nextStage(6)"><div class="letter-box"><p>Pero in reality, hindi ko lang alam paano to sabihin in-person</p></div></div>
+    <div id="stage7" class="stage" onclick="nextStage(7)"><div class="letter-box"><p>Kaya ganito ginawa ko.... (sorry na agad)</p></div></div>
+    <div id="stage8" class="stage" onclick="nextStage(8)"><div class="letter-box"><p>Kung binabasa mo pa to... yiieee hahahahaha EME eto na...</p></div></div>
 
     <div id="stage9" class="stage">
         <div class="container">
-            <img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" class="cat-gif">
+            <img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" style="width:150px; border-radius:15px; margin-bottom:10px;">
             <h1>Maaari ba kitang maging Valentine?</h1>
-            <p><i>"Dinggin mo ang hiling..."</i></p>
             <div class="buttons">
                 <button id="yesBtn" onclick="celebrate()">Sige! (Yes)</button>
                 <button id="noBtn" onmouseover="moveNo()">Hindi (No)</button>
@@ -94,8 +80,7 @@
         <div class="container">
             <h1>No Delete, No Erase! ❤️</h1>
             <p>Naka-record na 'yan, bawal na bawiin. See you sa ika-14, Kammie!</p>
-            <br>
-            <a href="https://m.me/ciel.gonz" class="messenger-btn">Hart reacs onlii xdxd 💬</a>
+            <a href="https://m.me/ciel.gonz" class="messenger-btn">Say hi to me! 💬</a>
         </div>
     </div>
 
@@ -107,26 +92,23 @@
         let isWaiting = false;
 
         function nextStage(current) {
-            if (isWaiting) return; // Ignore clicks if we are already in a delay
-
+            if (isWaiting) return;
             const music = document.getElementById('bgMusic');
             
-            // Start music on first tap
             if (current === 1) {
-                music.play().catch(e => console.log("Audio play blocked"));
-                // Move immediately from envelope to first letter
-                document.getElementById('stage' + current).classList.remove('active');
-                document.getElementById('stage' + (current + 1)).classList.add('active');
-                return; 
+                music.play().catch(e => console.log("Music blocked"));
+                document.getElementById('stage1').classList.remove('active');
+                document.getElementById('stage2').classList.add('active');
+                return;
             }
 
-            // For letters 2-8: Wait before moving
             isWaiting = true;
             const currentElement = document.getElementById('stage' + current);
             currentElement.classList.add('waiting');
 
+            // 5s for letters, 8s for the last one
             let delayTime = 5000;
-            if (current === 8) { delayTime = 8000; } // The big pause
+            if (current === 8) { delayTime = 8000; }
 
             setTimeout(() => {
                 isWaiting = false;
