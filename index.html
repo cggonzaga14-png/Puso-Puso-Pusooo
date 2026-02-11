@@ -10,24 +10,21 @@
         
         body, html { height: 100%; margin: 0; font-family: 'Georgia', serif; overflow: hidden; }
 
-        /* The Blurred Background */
+        /* Background logic */
         .bg-image {
             position: fixed;
             left: 0; right: 0; top: 0; bottom: 0;
-            /* REPLACE THE LINK BELOW WITH YOUR BACKGROUND PICTURE */
             background-image: url('https://i.ibb.co/fGvMfyxf/K.jpg');
             background-size: cover;
             background-position: center;
-            filter: blur(8px); /* Adjust the '8px' to make it more or less blurry */
-            transform: scale(1.1); /* Prevents white edges caused by blur */
+            /* Blur removed for better loading performance */
             z-index: -1;
         }
 
-        /* Dark overlay to make text pop */
         .overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.2);
+            background: rgba(0, 0, 0, 0.25);
             z-index: 0;
         }
 
@@ -42,21 +39,22 @@
         .envelope::before { content: ''; position: absolute; top: -70px; left: 0; border-left: 70px solid transparent; border-right: 75px solid transparent; border-bottom: 70px solid #d32f2f; }
         
         /* Letter Boxes */
-        .letter-box { background: rgba(255, 255, 255, 0.9); padding: 2.5rem; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); border: 2px solid #f8bbd0; cursor: pointer; }
+        .letter-box { background: rgba(255, 255, 255, 0.95); padding: 2.5rem; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); border: 2px solid #f8bbd0; cursor: pointer; }
         .letter-box p { color: var(--deep-pink); font-size: 1.3rem; line-height: 1.5; font-weight: bold; margin: 0; }
-        .tap-hint { font-size: 0.8rem; color: #757575; margin-top: 20px; font-weight: normal; }
 
-        /* Button Styling */
         .container { background: white; padding: 2rem; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); border: 2px solid #f8bbd0; }
         h1 { color: var(--deep-pink); font-size: 1.5rem; }
         .buttons { margin-top: 2rem; display: flex; justify-content: center; align-items: center; gap: 20px; min-height: 60px; position: relative; }
         
-        button { padding: 12px 25px; font-size: 1rem; border: none; border-radius: 50px; cursor: pointer; }
-        #yesBtn { background-color: var(--pink); color: white; font-weight: bold; transition: transform 0.2s; }
+        button { padding: 12px 25px; font-size: 1rem; border: none; border-radius: 50px; cursor: pointer; font-weight: bold; }
+        #yesBtn { background-color: var(--pink); color: white; transition: transform 0.2s; }
         #noBtn { background-color: #9e9e9e; color: white; }
         
         .cat-gif { width: 160px; border-radius: 15px; margin-bottom: 15px; }
-        .messenger-btn { display: inline-block; margin-top: 15px; padding: 12px 24px; background-color: #0084ff; color: white; text-decoration: none; border-radius: 25px; font-weight: bold; box-shadow: 0 4px 10px rgba(0,132,255,0.3); }
+        .messenger-btn { display: inline-block; margin-top: 15px; padding: 12px 24px; background-color: #0084ff; color: white; text-decoration: none; border-radius: 25px; font-weight: bold; }
+
+        /* Block interaction during delay */
+        .waiting { pointer-events: none; }
     </style>
 </head>
 <body>
@@ -64,59 +62,18 @@
     <div class="bg-image"></div>
     <div class="overlay"></div>
 
-    <div id="stage1" class="stage active" onclick="nextStage(1)">
+    <div id="stage1" class="stage active" onclick="startExperience()">
         <div class="envelope"><span style="font-size: 45px; z-index: 2;">💌</span></div>
         <p style="color: white; font-weight: bold; margin-top: 30px; text-shadow: 1px 1px 5px rgba(0,0,0,0.5);">May sorpresa ako sa'yo...<br><span style="font-size: 0.8rem; font-weight: normal; opacity: 0.8;">(Tap to open)</span></p>
     </div>
 
-    <div id="stage2" class="stage" onclick="nextStage(2)">
-        <div class="letter-box">
-            <p>Hello Kammie!</p>
-            <div class="tap-hint">Tap to continue...</div>
-        </div>
-    </div>
-
-    <div id="stage3" class="stage" onclick="nextStage(3)">
-        <div class="letter-box">
-            <p>Thank you! For who you are...</p>
-            <div class="tap-hint">Tap to continue...</div>
-        </div>
-    </div>
-
-    <div id="stage4" class="stage" onclick="nextStage(4)">
-        <div class="letter-box">
-            <p>You're probably thinking "ang dami naman neto"</p>
-            <div class="tap-hint">Tap to continue...</div>
-        </div>
-    </div>
-
-    <div id="stage5" class="stage" onclick="nextStage(5)">
-        <div class="letter-box">
-            <p>Dapat kasi may surprisee...</p>
-            <div class="tap-hint">Tap to continue...</div>
-        </div>
-    </div>
-
-    <div id="stage6" class="stage" onclick="nextStage(6)">
-        <div class="letter-box">
-            <p>Pero in reality, hindi ko lang alam paano to sabihin in-person</p>
-            <div class="tap-hint">Tap to continue...</div>
-        </div>
-    </div>
-
-    <div id="stage7" class="stage" onclick="nextStage(7)">
-        <div class="letter-box">
-            <p>Kaya ganito ginawa ko.... (sorry na agad)</p>
-            <div class="tap-hint">Tap to continue...</div>
-        </div>
-    </div>
-
-    <div id="stage8" class="stage" onclick="nextStage(8)">
-        <div class="letter-box">
-            <p>Kung binabasa mo pa to... yiieee hahahahaha EME eto na...</p>
-            <div class="tap-hint">Tap to continue...</div>
-        </div>
-    </div>
+    <div id="stage2" class="stage" onclick="nextStage(2)"><div class="letter-box"><p>Hello Kammie!</p></div></div>
+    <div id="stage3" class="stage" onclick="nextStage(3)"><div class="letter-box"><p>Thank you! For who you are...</p></div></div>
+    <div id="stage4" class="stage" onclick="nextStage(4)"><div class="letter-box"><p>You're probably thinking "ang dami naman neto"</p></div></div>
+    <div id="stage5" class="stage" onclick="nextStage(5)"><div class="letter-box"><p>Dapat kasi may surprisee...</p></div></div>
+    <div id="stage6" class="stage" onclick="nextStage(6)"><div class="letter-box"><p>Pero in reality, hindi ko lang alam paano to sabihin in-person</p></div></div>
+    <div id="stage7" class="stage" onclick="nextStage(7)"><div class="letter-box"><p>Kaya ganito ginawa ko.... (sorry na agad)</p></div></div>
+    <div id="stage8" class="stage" onclick="nextStage(8)"><div class="letter-box"><p>Kung binabasa mo pa to... yiieee hahahahaha EME eto na...</p></div></div>
 
     <div id="stage9" class="stage">
         <div class="container">
@@ -134,22 +91,40 @@
         <div class="container">
             <h1>No Delete, No Erase! ❤️</h1>
             <p>Naka-record na 'yan, bawal na bawiin. See you sa ika-14, Kammie!</p>
-            <br>
-            <a href="https://m.me/ciel.gonz" class="messenger-btn">Hart reacs onlii xdxd 💬</a>
+            <a href="https://m.me/ciel.gonz" class="messenger-btn"> Heart reacxss XOXO! 💬</a>
         </div>
     </div>
 
     <audio id="bgMusic" loop>
-        <source src="https://files.catbox.moe/50y1pj.mp3" type="audio/mpeg">
+        <source src="https://files.catbox.moe/bpmsvk.mp3" type="audio/mpeg">
     </audio>
 
     <script>
+        let isWaiting = false;
+        const music = document.getElementById('bgMusic');
+
+        function startExperience() {
+            music.play().catch(e => console.log("Music play triggered"));
+            document.getElementById('stage1').classList.remove('active');
+            document.getElementById('stage2').classList.add('active');
+        }
+
         function nextStage(current) {
-            if (current === 1) {
-                document.getElementById('bgMusic').play();
-            }
-            document.getElementById('stage' + current).classList.remove('active');
-            document.getElementById('stage' + (current + 1)).classList.add('active');
+            if (isWaiting) return;
+
+            isWaiting = true;
+            const currentElement = document.getElementById('stage' + current);
+            currentElement.classList.add('waiting');
+
+            let delayTime = 5000; 
+            if (current === 8) { delayTime = 8000; } 
+
+            setTimeout(() => {
+                isWaiting = false;
+                currentElement.classList.remove('active');
+                currentElement.classList.remove('waiting');
+                document.getElementById('stage' + (current + 1)).classList.add('active');
+            }, delayTime);
         }
 
         function moveNo() {
